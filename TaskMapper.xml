@@ -1,0 +1,44 @@
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+<!--<mapper namespace="fun.tanc.selfclocking.dao.UserTaskDao">-->
+<!--    <resultMap id="BaseResultMap" type="fun.tanc.selfclocking.model.UserTask">-->
+<!--        <id column="user_id" property="id" jdbcType="INTEGER"/>-->
+<!--        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>-->
+<!--        <result column="level" property="taskLevel" jdbcType="INTEGER"/>-->
+<!--    </resultMap>-->
+<!--    &lt;!&ndash;    // 创建任务表&ndash;&gt;-->
+<!--    <insert id="createTaskTable" parameterType="string">-->
+<!--    <![CDATA[-->
+<!--        CREATE TABLE ${tableName} (-->
+<!--        user_id INT PRIMARY KEY,-->
+<!--        foreign key(user_id) references user(id) on delete cascade on update cascade-->
+<!--        )-->
+<!--        ]]>-->
+<!--    </insert>-->
+
+<!--    &lt;!&ndash;     插入用户id&ndash;&gt;-->
+<!--    <insert id="insertUserId" parameterType="int">-->
+<!--    <![CDATA[-->
+<!--        insert into ${tableName} (user_id) values (${userId})-->
+<!--        ]]>-->
+<!--    </insert>-->
+
+<!--    <insert id="alterTaskTable">-->
+<!--        <![CDATA[-->
+<!--        alter table ${tableName} add column ${columnName} varchat(255)-->
+<!--        ]]>-->
+<!--    </insert>-->
+
+<!--    <insert id="insertTask">-->
+<!--        <![CDATA[-->
+<!--            insert into ${tableName} ${taskName} values (${taskStr})-->
+<!--        ]]>-->
+<!--    </insert>-->
+
+
+<!--    <insert id="deleteTask">-->
+<!--        <![CDATA[-->
+<!--            delete from ${tableName} where ${taskName} = ${taskStr}-->
+<!--        ]]>-->
+<!--    </insert>-->
+<!--</mapper>-->
