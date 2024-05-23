@@ -28,27 +28,6 @@ class SelfClockingApplicationTests {
 
 	@Test
 	void contextLoads() {
-		userService.addUser("tanc", "123456");
-//		userService.addUser("tancc", "123456");
-//		userServic//		.addUser("tanccc", "123456");
-//		userService.deleteUser("tanc");
-//		userService.deleteUser("tanccc");
-//		userService.deleteUser("tancc");
-//		userService.findUser("tanccc");
-////		userService.finderUserName("t");
-//		userTaskService.addUserTask("tancc", "test", "test");
-//		userTaskService.addUserTask("tancc", "test2", "test2");
-//		userTaskService.addUserTask("tancc", "test3", "test3");
-
-//		userTaskService.deleteUserTask("tancc", "test");
-//		userTaskService.deleteUserTask("tancc", "test2");
-//		userTaskService.deleteUserTask("tancc", "test3");
-
-//		List<UserTask> tancc = userTaskService.findUserTask("tancc");
-//		tancc.forEach(x -> System.out.println(x.getTaskField()));
-
-//
-		rsiServiceImpl.addRelation("tanc", "szy", "love");
 
 	}
 

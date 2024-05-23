@@ -1,5 +1,6 @@
 package fun.tanc.selfclocking.control;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import fun.tanc.selfclocking.service.RelationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ public class RelationControl {
     RelationServiceImpl relationService;
 
     //绑定关系
+    @SaCheckLogin
     @RequestMapping(value ="/bindRelationship", method = RequestMethod.POST)
     public Boolean bindRelationship(@RequestParam("username") String userName,
                                     @RequestParam("friendname") String friendName,
@@ -22,6 +24,7 @@ public class RelationControl {
     }
 
     //解绑关系
+    @SaCheckLogin
     @RequestMapping(value = "/deleteRelationship",method = RequestMethod.DELETE)
     public Boolean deleteRelationship(@RequestParam("username") String userName,
                                       @RequestParam("friendname") String friendName)

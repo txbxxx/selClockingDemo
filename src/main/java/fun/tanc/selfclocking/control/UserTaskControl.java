@@ -1,5 +1,7 @@
 package fun.tanc.selfclocking.control;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.stp.StpUtil;
 import fun.tanc.selfclocking.model.UserTask;
 import fun.tanc.selfclocking.service.UserTaskServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ public class UserTaskControl {
 
 
     //添加任务
+    @SaCheckLogin
     @RequestMapping (value = "/addUserTask", method = RequestMethod.POST)
     public Boolean addUserTask(@RequestParam("username") String userName,
                                @RequestParam("taskname") String taskName,
@@ -26,6 +29,7 @@ public class UserTaskControl {
 
 
     //删除任务
+    @SaCheckLogin
     @RequestMapping(value = "/deleteUserTask",method = RequestMethod.DELETE)
     public void deleteUserTask(@RequestParam("username") String userName,
                                @RequestParam("taskname") String taskName) {
@@ -34,6 +38,7 @@ public class UserTaskControl {
 
 
     //查询任务
+    @SaCheckLogin
     @RequestMapping(value = "/findUserTask",method = RequestMethod.GET)
     public List<UserTask> findUserTask(@RequestParam("username") String userName) {
         List<UserTask> userTask = userTaskService.findUserTask(userName);
@@ -42,10 +47,11 @@ public class UserTaskControl {
     }
 
     //列出所有任务
+    @SaCheckLogin
     @RequestMapping(value = "/finderUserTask",method = RequestMethod.GET)
-    public List<UserTask> finderUserTask(@RequestParam("username") String userName,
-                                         @RequestParam("taskname") String taskName) {
-        List<UserTask> userTask = userTaskService.finderUserTask(userName,taskName);
+    public List<UserTask> finderUserTask(@RequestParam("username") String userName) {
+        StpUtil.getLoginId();
+        List<UserTask> userTask = userTaskService.findUserTask(userName);
         userTask.forEach(x -> System.out.println(x.getTaskField()));
         return userTask;
     }
