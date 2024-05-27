@@ -52,21 +52,25 @@ public class UserTaskServiceImpl {
     }
 
     //删除任务字段
-    public void deleteUserTask(String userName,String taskName){
+    public Boolean deleteUserTask(String userName,String taskName){
         UserModel userModel = usImpl.findUser(userName);
         QueryWrapper<UserTask> eq = new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName);
         int delete = userTaskDao.delete(eq);
-        System.out.println(delete);
+        if (delete < 0) {
+            System.out.println("删除失败");
+            return false;
+        }
+        return true;
     }
 
     //列出所有任务字段
-    public List<UserTask> findUserTask(String userName){
-        UserModel userModel = usImpl.findUser(userName);
+    public List<UserTask> finderUserTask(String username){
+        UserModel userModel = usImpl.findUser(username);
         return userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()));
     }
 
     //查询任务字段(模糊)
-    public List<UserTask> finderUserTask(String userName,String taskName){
+    public List<UserTask> findUserTask(String userName,String taskName){
         UserModel userModel = usImpl.findUser(userName);
         List<UserTask> userTasks = userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).like("task_name", taskName));
         userTasks.forEach(System.out::println);
