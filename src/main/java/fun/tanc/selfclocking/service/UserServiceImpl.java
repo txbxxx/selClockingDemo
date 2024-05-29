@@ -44,11 +44,7 @@ public class UserServiceImpl {
 
         //插入用户
         int insert = userDao.insert(new UserModel(id, name, password));
-        if (insert < 0){
-            return false;
-        }
-
-        return true;
+        return insert >= 0;
     }
 
 

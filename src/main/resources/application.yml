@@ -24,5 +24,8 @@ sa-token:
   # 是否输出操作日志
   is-log: true
 
+
+  is-read-header: true
+
 server:
   port: 8081

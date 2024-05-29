@@ -56,6 +56,13 @@ public class UserControl {
     }
 
 
+    //获取当前会话登录的用户
+    @RequestMapping(value = "/getLoginUser",method = RequestMethod.GET)
+    @CrossOrigin
+    public String getLoginUser(){
+        return StpUtil.getLoginId().toString();
+    }
+
 
     //用户登出
     @RequestMapping(value = "/logoutUser",method = RequestMethod.GET)
@@ -67,7 +74,7 @@ public class UserControl {
 
 
     //注册用户
-    @RequestMapping(value = "/registerUser",method = RequestMethod.POST)
+    @PostMapping(value = "/registerUser")
     @CrossOrigin
     public SaResult addUser(@RequestBody Map<String,String> map){
         Boolean b = userService.addUser(map.get("username"), map.get("password"));
@@ -80,7 +87,7 @@ public class UserControl {
 
 
     //删除用户
-    @RequestMapping(value = "/deleteUser",method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/deleteUser")
     @CrossOrigin
     public Boolean deleteUser(@RequestParam("username") String username){
         return userService.deleteUser(username);
