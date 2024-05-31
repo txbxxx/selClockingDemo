@@ -70,13 +70,12 @@ public class ScheduleServiceImpl {
 
 
     //删除日程
-    public Boolean deleteSchedule(String scheduleFiled,String userName){
+    public Boolean deleteSchedule(String scheduleFiled,String userName,String date){
         UserModel user = usImpl.findUser(userName);
-        int delete = scheduleDao.delete(new QueryWrapper<Schedule>().eq("user_id", user.getId()).eq("schedule_filed", scheduleFiled));
+        int delete = scheduleDao.delete(new QueryWrapper<Schedule>().eq("user_id", user.getId()).eq("schedule_filed", scheduleFiled).eq("date", date));
         return delete >= 0;
     }
-    
-    
+
 }
 
 

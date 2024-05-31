@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -22,6 +23,9 @@ public class ScheduleControl {
     {
         String userName = map.get("username");
         String scheduleFiled = map.get("scheduleFiled");
+        if (scheduleFiled == null){
+            return SaResult.error("日程不能为空");
+        }
         String date = map.get("date");
         Boolean b = scheduleService.addSchedule(userName, scheduleFiled, date);
         if (b){
@@ -54,5 +58,20 @@ public class ScheduleControl {
             return SaResult.data(schedule);
         }
         return SaResult.ok("此用户没有此日程");
+    }
+
+
+    //删除日程
+    @DeleteMapping(value = "/deleteSchedule")
+    public SaResult deleteSchedule(@RequestBody Map<String,String> map)
+    {
+        String scheduleFiled = map.get("scheduleFiled");
+        String username = map.get("username");
+        String date = map.get("date");
+        Boolean b = scheduleService.deleteSchedule(scheduleFiled, username,date);
+        if (b) {
+            return SaResult.ok("删除成功");
+        }
+        return SaResult.error("删除失败");
     }
 }
