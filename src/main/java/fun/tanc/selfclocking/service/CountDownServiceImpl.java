@@ -58,7 +58,7 @@ public class CountDownServiceImpl {
         //更新当前倒计时的天数
         countDown.setCountdownPast(countDown.getCountdownPast()+1);
         if (Objects.equals(countDown.getCountdownPast(), countDown.getCountdownDay())){
-            countDown.setOver(1);
+            countDown.setCountdown_over(1);
         }
         int update = countDownDao.update(countDown, new QueryWrapper<CountDown>().eq("user_name", userName).eq("countdown_name", countdownName));
         if (update == 1)
@@ -109,7 +109,7 @@ public class CountDownServiceImpl {
     public List<CountDown> finderCountDownOverFalse(String userName)
     {
         //获取所有未完成的倒计时
-        List<CountDown> countDowns = countDownDao.selectList(new QueryWrapper<CountDown>().eq("over", 0).eq("user_name", userName));
+        List<CountDown> countDowns = countDownDao.selectList(new QueryWrapper<CountDown>().eq("countdown_over", 0).eq("user_name", userName));
         //如果此用户没有倒计时
         if (countDowns.isEmpty()){
             return null;
@@ -121,7 +121,7 @@ public class CountDownServiceImpl {
     public List<CountDown> finderCountDownOverTrue(String userName)
     {
         //获取所有未完成的倒计时
-        List<CountDown> countDowns = countDownDao.selectList(new QueryWrapper<CountDown>().eq("over", 1).eq("user_name", userName));
+        List<CountDown> countDowns = countDownDao.selectList(new QueryWrapper<CountDown>().eq("countdown_over", 1).eq("user_name", userName));
         //如果此用户没有倒计时
         if (countDowns.isEmpty()){
             return null;

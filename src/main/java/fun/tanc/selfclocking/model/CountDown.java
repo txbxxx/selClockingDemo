@@ -23,6 +23,6 @@ public class CountDown {
     @TableField(value = "countdown_past")
     Long countdownPast;
 
-    @TableField(value = "over")
-    int over;
+    @TableField(value = "countdown_over")
+    int countdown_over;
 }

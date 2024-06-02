@@ -91,4 +91,17 @@ public class CountDownControl {
             return SaResult.error("修改失败");
         }
     }
+
+    //更新倒计时剩余天数
+    @PutMapping(value = "/updateCountDownPastDay")
+    public SaResult updateCountDownPastDay(@RequestBody Map<String, String> map) {
+        String userName = StpUtil.getLoginId().toString();
+        String countdownName = map.get("countdownName");
+        Boolean b = countDownService.updateCountDownPastDay(userName, countdownName);
+        if (b){
+            return SaResult.ok("修改成功");
+        }else {
+            return SaResult.error("修改失败");
+        }
+    }
 }
