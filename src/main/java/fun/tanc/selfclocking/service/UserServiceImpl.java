@@ -1,6 +1,7 @@
 package fun.tanc.selfclocking.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import fun.tanc.selfclocking.dao.UserDao;
 import fun.tanc.selfclocking.dao.UserTaskDao;
@@ -88,5 +89,39 @@ public class UserServiceImpl {
         userDao.deleteById(id);
 
         return true;
+    }
+
+
+    //用户学习的时间
+    public Boolean updateUserLearnDate(String name,int learnDate)
+    {
+        //查询用户
+        UserModel user = findUser(name);
+        //如果用户不存在则返回false
+        if(user == null) return false;
+
+        //获取用户id，根据id更新用户学习时间
+        Long id = user.getId();
+        UserModel entity = new UserModel(user.getId(), user.getName(), user.getPassword(), learnDate);
+        System.out.println(entity);
+        int userId = userDao.update(entity, new UpdateWrapper<UserModel>().eq("id", user.getId()));
+        System.out.println(userId);
+        if (userId > 0) return true;
+        //更新失败
+        return false;
+    }
+    
+    
+    //获取用户学习时间
+    public int getUserLearnDate(String name)
+    {
+        //查询用户
+        UserModel user = findUser(name);
+        //如果用户不存在则返回false
+        if(user == null) return 0;
+        //获取用户id，根据id更新用户学习时间
+        int learnDate = user.getLearnDate();
+        if (learnDate > 0) return learnDate;
+        return 0;
     }
 }

@@ -1,5 +1,6 @@
 package fun.tanc.selfclocking.control;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import fun.tanc.selfclocking.model.Schedule;
 import fun.tanc.selfclocking.service.ScheduleServiceImpl;
@@ -23,11 +24,15 @@ public class ScheduleControl {
     {
         String userName = map.get("username");
         String scheduleFiled = map.get("scheduleFiled");
+        String starTime = map.get("starTime");
+        String endTime = map.get("endTime");
+
+
         if (scheduleFiled == null){
             return SaResult.error("日程不能为空");
         }
         String date = map.get("date");
-        Boolean b = scheduleService.addSchedule(userName, scheduleFiled, date);
+        Boolean b = scheduleService.addSchedule(userName, scheduleFiled, date, starTime, endTime);
         if (b){
             return SaResult.ok("添加成功").setData(true);
         }else {
@@ -37,8 +42,9 @@ public class ScheduleControl {
 
     //列出所有日程
     @GetMapping(value = "/findAllSchedule")
-    public SaResult findAllSchedule(@RequestParam("username") String userName)
+    public SaResult findAllSchedule()
     {
+        String userName = StpUtil.getLoginId().toString();
         List<Schedule> allSchedule = scheduleService.findAllSchedule(userName);
         if (allSchedule != null) {
             return SaResult.data(allSchedule);

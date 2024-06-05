@@ -112,6 +112,35 @@ public class UserControl {
         return userService.finderUserName(name);
     }
 
+
+
+    //更新用户的学习时间
+    @SaCheckLogin
+    @RequestMapping(value = "/updateUserLearnDate",method = RequestMethod.PUT)
+    @CrossOrigin
+    public SaResult updateUserLearnDate(@RequestBody Map<String,String> map){
+        int learnDate = Integer.parseInt(map.get("learnDate"));
+        String username = StpUtil.getLoginId().toString();
+        System.out.println(learnDate);
+        Boolean b = userService.updateUserLearnDate(username, learnDate);
+        if (b){
+            return SaResult.ok("更新成功");
+        }else {
+            return SaResult.error("更新失败,请联系管理员");
+        }
+    }
+
+    //获取用户学习时间
+    @SaCheckLogin
+    @RequestMapping(value = "/getUserLearnDate",method = RequestMethod.GET)
+    @CrossOrigin
+    public SaResult getUserLearnDate(){
+        String username = StpUtil.getLoginId().toString();
+        int learnDate = userService.getUserLearnDate(username);
+        return SaResult.data(learnDate);
+    }
+
+
     @SaCheckLogin
     @RequestMapping(value = "/hello",method = RequestMethod.GET)
     @CrossOrigin

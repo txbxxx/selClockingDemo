@@ -26,15 +26,22 @@ public class UserModel {
     @TableField(value = "password")
     private String password;
 
-    @TableField(value = "learn_date",insertStrategy = FieldStrategy.IGNORED,exist = false)
+    @TableField(value = "learn_date")
     private int learnDate;
 
-    @TableField(value = "task",insertStrategy = FieldStrategy.IGNORED,exist = false)
+    @TableField(value = "task")
     private String task;
 
     public UserModel(long id,String name, String password) {
         this.name = name;
         this.password = password;
         this.id = id;
+    }
+
+    public UserModel(long id,String name, String password,int learnDate) {
+        this.name = name;
+        this.password = password;
+        this.id = id;
+        this.learnDate = learnDate;
     }
 }

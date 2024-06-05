@@ -25,6 +25,12 @@ public class Schedule {
     @TableField(value = "date")
     String date;
 
+    @TableField(value = "start_time" )
+    String startTime;
+
+    @TableField(value = "end_time")
+    String endTime;
+
 
 
 }
