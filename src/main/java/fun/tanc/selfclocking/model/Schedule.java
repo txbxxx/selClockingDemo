@@ -22,6 +22,9 @@ public class Schedule {
     @TableField(value = "schedule_filed")
     String scheduleFiled;
 
+    @TableField(value = "end_date")
+    String endDate;
+
     @TableField(value = "date")
     String date;
 

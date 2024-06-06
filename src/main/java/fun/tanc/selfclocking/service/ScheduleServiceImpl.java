@@ -21,13 +21,13 @@ public class ScheduleServiceImpl {
 
 
     //添加日程
-    public Boolean addSchedule(String userName,String scheduleFiled,String date,String starTime,String endTime)
+    public Boolean addSchedule(String userName,String scheduleFiled,String endDate,String date,String starTime,String endTime)
     {
         System.out.println(userName);
         System.out.println(scheduleFiled);
         System.out.println(date);
         Long userId = usImpl.findUser(userName).getId();
-        int insert = scheduleDao.insert(new Schedule(userId, null, scheduleFiled, date, starTime, endTime));
+        int insert = scheduleDao.insert(new Schedule(userId, null, scheduleFiled, endDate,date, starTime, endTime));
         return insert >= 0;
     }
     
