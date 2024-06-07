@@ -56,11 +56,13 @@ public class UserTaskControl {
 
     //查询任务
     @SaCheckLogin
-    @RequestMapping(value = "/findUserTask",method = RequestMethod.GET)
+    @RequestMapping(value = "/searchTask",method = RequestMethod.GET)
     @CrossOrigin
-    public List<UserTask> findUserTask(@RequestParam("taskFiled") String taskFiled) {
+    public List<UserTask> findUserTask(@RequestBody Map<String,String> map) {
+        String taskName = map.get("taskname");
+        String taskFiled = map.get("taskfiled");
         String userName = StpUtil.getLoginId().toString();
-        List<UserTask> userTask = userTaskService.findUserTask(userName,taskFiled);
+        List<UserTask> userTask = userTaskService.findUserTask(userName,taskName,taskFiled);
         return userTask;
     }
 
@@ -87,8 +89,9 @@ public class UserTaskControl {
         String taskName = map.get("taskname");
         String taskStr = map.get("taskstr");
         int taskLevel = Integer.parseInt(map.get("tasklevel"));
+        String oldTaskName = map.get("oldtaskname");
         String userName = StpUtil.getLoginId().toString();
-        Boolean b = userTaskService.updateUserTask(userName, taskName, taskLevel,taskStr);
+        Boolean b = userTaskService.updateUserTask(userName, taskName, taskLevel,taskStr,oldTaskName);
         if (b){
             return SaResult.ok("修改成功");
         }

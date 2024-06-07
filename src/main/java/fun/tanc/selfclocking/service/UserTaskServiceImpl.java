@@ -71,20 +71,21 @@ public class UserTaskServiceImpl {
     }
 
     //查询任务字段(模糊)
-    public List<UserTask> findUserTask(String userName,String taskName){
+    public List<UserTask> findUserTask(String userName,String taskName,String taskFiled){
         UserModel userModel = usImpl.findUser(userName);
-        return userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).like("task_name", taskName));
+        return userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).like("task_name", taskName).like("task_field", taskFiled));
     }
 
     //修改任务字段
-    public Boolean updateUserTask(String userName,String taskName,int taskLevel,String taskStr){
+    public Boolean updateUserTask(String userName,String taskName,int taskLevel,String taskStr,String oldTaskName){
+        System.out.println("老任务名: "+oldTaskName);
         UserModel userModel = usImpl.findUser(userName);
-        UserTask userTask = userTaskDao.selectOne(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        UserTask userTask = userTaskDao.selectOne(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", oldTaskName));
         if  (userTask == null) {
             System.out.println("任务不存在");
-            return null;
+            return false;
         }
-        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskLevel,taskStr,0), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskLevel,taskStr,0), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_id", userTask.getTaskId()));
         if (update < 0) {
             System.out.println("修改失败");
             return false;

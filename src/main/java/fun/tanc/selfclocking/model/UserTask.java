@@ -1,9 +1,6 @@
 package fun.tanc.selfclocking.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +11,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @NoArgsConstructor
 @TableName("usertask")
 public class UserTask {
-    @TableId(value = "user_id")
+
+    //自动增长无序构建
+    @TableId(value = "task_id",type = IdType.AUTO)
+    private long taskId;
+
+    @TableField(value = "user_id")
     private long id;
 
     @TableField(value = "task_name")
@@ -33,5 +35,19 @@ public class UserTask {
         this.id = id;
         this.taskName = taskName;
         this.taskField = taskField;
+    }
+
+    public UserTask(long userID, String taskName, int taskLevel, String taskStr, int i) {
+        this.id = userID;
+        this.taskName = taskName;
+        this.taskField = taskStr;
+        this.taskLevel = taskLevel;
+    }
+
+    public UserTask(Long id, String taskName, int taskLevel, String taskStr) {
+        this.id = id;
+        this.taskName = taskName;
+        this.taskField = taskStr;
+        this.taskLevel = taskLevel;
     }
 }
