@@ -25,8 +25,9 @@ public class UserTaskControl {
     public SaResult addUserTask(@RequestBody Map<String,String> map){
         String taskName = map.get("taskname");
         String taskStr = map.get("taskstr");
+        int taskLevel = Integer.parseInt(map.get("tasklevel"));
         String userName = StpUtil.getLoginId().toString();
-        Boolean b = userTaskService.addUserTask(userName, taskName, taskStr);
+        Boolean b = userTaskService.addUserTask(userName, taskName,taskLevel,taskStr);
         if (b){
             return SaResult.ok("添加成功");
         }else {
@@ -85,8 +86,9 @@ public class UserTaskControl {
     public SaResult updateUserTask(@RequestBody Map<String,String> map) {
         String taskName = map.get("taskname");
         String taskStr = map.get("taskstr");
+        int taskLevel = Integer.parseInt(map.get("tasklevel"));
         String userName = StpUtil.getLoginId().toString();
-        Boolean b = userTaskService.updateUserTask(userName, taskName, taskStr);
+        Boolean b = userTaskService.updateUserTask(userName, taskName, taskLevel,taskStr);
         if (b){
             return SaResult.ok("修改成功");
         }

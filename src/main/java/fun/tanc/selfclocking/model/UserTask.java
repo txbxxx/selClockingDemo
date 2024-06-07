@@ -20,7 +20,7 @@ public class UserTask {
     @TableField(value = "task_name")
     private String taskName;
 
-    @TableField(value = "level",exist = false)
+    @TableField(value = "level")
     private int taskLevel;
 
     @TableField(value = "task_field")

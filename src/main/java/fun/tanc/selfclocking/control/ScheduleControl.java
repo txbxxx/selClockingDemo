@@ -86,7 +86,7 @@ public class ScheduleControl {
     public SaResult deleteSchedule(@RequestBody Map<String,String> map)
     {
         String scheduleFiled = map.get("scheduleFiled");
-        String username = map.get("username");
+        String username = StpUtil.getLoginId().toString();
         String date = map.get("date");
         Boolean b = scheduleService.deleteSchedule(scheduleFiled, username,date);
         if (b) {

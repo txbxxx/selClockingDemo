@@ -23,7 +23,7 @@ public class UserTaskServiceImpl {
 
     //添加任务字段
     @Transactional(rollbackFor = Exception.class)
-    public Boolean addUserTask(String userName,String taskName,String taskStr){
+    public Boolean addUserTask(String userName,String taskName,int taskLevel,String taskStr){
         //查找用户是否存在
         UserModel userModel = usImpl.findUser(userName);
         if (userModel == null) {
@@ -81,14 +81,14 @@ public class UserTaskServiceImpl {
     }
 
     //修改任务字段
-    public Boolean updateUserTask(String userName,String taskName,String taskStr){
+    public Boolean updateUserTask(String userName,String taskName,int taskLevel,String taskStr){
         UserModel userModel = usImpl.findUser(userName);
         UserTask userTask = userTaskDao.selectOne(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
         if  (userTask == null) {
             System.out.println("任务不存在");
             return null;
         }
-        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskStr), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskLevel,taskStr), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
         if (update < 0) {
             System.out.println("修改失败");
             return false;
