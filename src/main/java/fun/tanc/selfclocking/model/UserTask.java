@@ -26,7 +26,8 @@ public class UserTask {
     @TableField(value = "task_field")
     private String taskField;
 
-
+    @TableField(value = "isover")
+    private int isOver;
 
     public UserTask(long id, String taskName, String taskField) {
         this.id = id;

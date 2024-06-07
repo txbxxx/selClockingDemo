@@ -95,4 +95,18 @@ public class UserTaskControl {
         return SaResult.error("修改失败没有这个字段或者");
     }
 
+    //更新任务状态
+    @RequestMapping(value = "/updateTaskStatus",method = RequestMethod.PUT)
+    @CrossOrigin
+    public SaResult updateTaskStatus(@RequestBody Map<String,String> map) {
+        String taskName = map.get("taskname");
+        int isOver = Integer.parseInt(map.get("taskstatus"));
+        String userName = StpUtil.getLoginId().toString();
+        Boolean b = userTaskService.updateUserTaskOver(userName, taskName, isOver);
+        if (b){
+            return SaResult.ok("修改成功");
+        }
+        return SaResult.error("修改失败没有这个字段或者");
+    }
+
 }

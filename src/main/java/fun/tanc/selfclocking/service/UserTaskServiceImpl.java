@@ -40,7 +40,7 @@ public class UserTaskServiceImpl {
         }
 
         //更新用户task字段
-        int insert = userTaskDao.insert(new UserTask(userID, taskName, taskStr));
+        int insert = userTaskDao.insert(new UserTask(userID, taskName,taskLevel, taskStr,0));
         if (insert < 0) {
             System.out.println("添加失败");
             return false;
@@ -52,11 +52,7 @@ public class UserTaskServiceImpl {
     //删除任务字段
     public Boolean deleteUserTask(String userName,String taskName){
         UserModel userModel = usImpl.findUser(userName);
-        System.out.println(userModel);
-        System.out.println(userModel.getId());
-        System.out.println(taskName);
         int delete = userTaskDao.delete(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
-        System.out.println(delete);
         if (delete <= 0) {
             System.out.println("删除失败");
             return false;
@@ -88,7 +84,24 @@ public class UserTaskServiceImpl {
             System.out.println("任务不存在");
             return null;
         }
-        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskLevel,taskStr), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        int update = userTaskDao.update(new UserTask(userModel.getId(), taskName, taskLevel,taskStr,0), new UpdateWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        if (update < 0) {
+            System.out.println("修改失败");
+            return false;
+        }
+        return true;
+    }
+
+    //更新任务完成没完成
+    public Boolean updateUserTaskOver(String userName,String taskName,int isOver){
+        UserModel userModel = usImpl.findUser(userName);
+        UserTask userTask = userTaskDao.selectOne(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).eq("task_name", taskName));
+        if  (userTask == null) {
+            System.out.println("任务不存在");
+            return null;
+        }
+        userTask.setIsOver(isOver);
+        int update = userTaskDao.updateById(userTask);
         if (update < 0) {
             System.out.println("修改失败");
             return false;
