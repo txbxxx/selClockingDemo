@@ -56,13 +56,16 @@ public class UserTaskControl {
 
     //查询任务
     @SaCheckLogin
-    @RequestMapping(value = "/searchTask",method = RequestMethod.GET)
+    @RequestMapping(value = "/searchTask",method = RequestMethod.POST   )
     @CrossOrigin
-    public List<UserTask> findUserTask(@RequestBody Map<String,String> map) {
+    public  SaResult findUserTask(@RequestBody Map<String,String> map) {
         String task = map.get("taskfiled");
         String userName = StpUtil.getLoginId().toString();
         List<UserTask> userTask = userTaskService.findUserTask(userName,task);
-        return userTask;
+        if (userTask == null){
+            return  SaResult.ok("没有任务");
+        }
+        return SaResult.data(userTask);
     }
 
 
