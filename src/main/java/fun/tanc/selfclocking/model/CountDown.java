@@ -31,4 +31,5 @@ public class CountDown {
 
     @TableField(value = "countdown_end")
     String countdownEnd;
+
 }

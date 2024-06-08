@@ -81,25 +81,25 @@ public class CountDownServiceImpl {
     public Boolean updateCountDownPastDay(String userName) throws ParseException {
         //列出所有未完成的倒计时
         List<CountDown> countDowns = finderCountDownOverFalse(userName);
-
+        //获取当前日期
+        Date date = new Date();
+        System.out.println(date.getTime());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //遍历列表（语法糖）
         for (CountDown countDown : countDowns) {
-            //获取当前日期
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-
             //将日期开始日期解析为date
             String Start = countDown.getCountdownStart();
             Date countdownStart = dateFormat.parse(Start);
+            System.out.println(countdownStart.getTime());
 
-            //计算日期差
             // 计算日期差
             long diffInMillies = Math.abs(date.getTime() - countdownStart.getTime());
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            System.out.println(diff);
+
 
             //更新当前倒计时的天数
-            countDown.setCountdownPast(countDown.getCountdownPast()+diff);
+            countDown.setCountdownPast(diff);
             if (Objects.equals(countDown.getCountdownPast(), countDown.getCountdownDay())){
                 countDown.setCountdown_over(1);
             }
