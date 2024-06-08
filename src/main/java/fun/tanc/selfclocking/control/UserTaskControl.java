@@ -59,10 +59,9 @@ public class UserTaskControl {
     @RequestMapping(value = "/searchTask",method = RequestMethod.GET)
     @CrossOrigin
     public List<UserTask> findUserTask(@RequestBody Map<String,String> map) {
-        String taskName = map.get("taskname");
-        String taskFiled = map.get("taskfiled");
+        String task = map.get("taskfiled");
         String userName = StpUtil.getLoginId().toString();
-        List<UserTask> userTask = userTaskService.findUserTask(userName,taskName,taskFiled);
+        List<UserTask> userTask = userTaskService.findUserTask(userName,task);
         return userTask;
     }
 

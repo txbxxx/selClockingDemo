@@ -71,9 +71,9 @@ public class UserTaskServiceImpl {
     }
 
     //查询任务字段(模糊)
-    public List<UserTask> findUserTask(String userName,String taskName,String taskFiled){
+    public List<UserTask> findUserTask(String userName,String taskFiled){
         UserModel userModel = usImpl.findUser(userName);
-        return userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).like("task_name", taskName).like("task_field", taskFiled));
+        return userTaskDao.selectList(new QueryWrapper<UserTask>().eq("user_id", userModel.getId()).like("task_name", taskFiled).like("task_field", taskFiled));
     }
 
     //修改任务字段
