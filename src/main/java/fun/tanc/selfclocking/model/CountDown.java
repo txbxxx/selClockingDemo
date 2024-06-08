@@ -25,4 +25,10 @@ public class CountDown {
 
     @TableField(value = "countdown_over")
     int countdown_over;
+
+    @TableField(value = "countdown_start")
+    String countdownStart;
+
+    @TableField(value = "countdown_end")
+    String countdownEnd;
 }

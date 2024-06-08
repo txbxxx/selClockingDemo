@@ -7,6 +7,7 @@ import fun.tanc.selfclocking.service.CountDownServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -93,11 +94,10 @@ public class CountDownControl {
     }
 
     //更新倒计时剩余天数
-    @PutMapping(value = "/updateCountDownPastDay")
-    public SaResult updateCountDownPastDay(@RequestBody Map<String, String> map) {
+    @GetMapping(value = "/updateCountDownPastDay")
+    public SaResult updateCountDownPastDay() throws ParseException {
         String userName = StpUtil.getLoginId().toString();
-        String countdownName = map.get("countdownName");
-        Boolean b = countDownService.updateCountDownPastDay(userName, countdownName);
+        Boolean b = countDownService.updateCountDownPastDay(userName);
         if (b){
             return SaResult.ok("修改成功");
         }else {
