@@ -10,6 +10,7 @@ import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ class SelfClockingApplicationTests {
 
 	@Autowired
 	RelationServiceImpl rsiServiceImpl;
+
 
 
 	@Test

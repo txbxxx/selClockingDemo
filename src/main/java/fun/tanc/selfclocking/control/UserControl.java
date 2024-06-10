@@ -113,6 +113,18 @@ public class UserControl {
     }
 
 
+    //使用id查找用户(主要用于关系查询)
+    @SaCheckLogin
+    @RequestMapping(value = "/findIdUser",method = RequestMethod.GET)
+    @CrossOrigin
+    public SaResult findIdUser(@RequestParam("id") String id){
+        try {
+            UserModel idUser = userService.findIdUser(id);
+            return SaResult.data(idUser);
+        }catch (Exception e) {
+            return SaResult.error("没有这个用户");
+        }
+    }
 
     //更新用户的学习时间
     @SaCheckLogin

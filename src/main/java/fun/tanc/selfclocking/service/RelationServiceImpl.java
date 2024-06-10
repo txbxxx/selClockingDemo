@@ -2,13 +2,11 @@ package fun.tanc.selfclocking.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import fun.tanc.selfclocking.dao.RelationshipDao;
-import fun.tanc.selfclocking.dao.UserDao;
 import fun.tanc.selfclocking.model.Relationship;
 import fun.tanc.selfclocking.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
 
 @Service
@@ -19,8 +17,7 @@ public class RelationServiceImpl {
     @Autowired
     private UserServiceImpl userService;
 
-    @Autowired
-    private UserDao userDao;
+
 
 
     //添加关系
@@ -36,7 +33,7 @@ public class RelationServiceImpl {
         //添加关系
 
         //判断关系是否存在
-        Relationship re = relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getId()).eq("user_two", user2.getId()));
+        Relationship re = relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getName()).eq("user_two", user2.getName()));
         if(re != null){
             System.out.println("关系已存在");
             return false;
@@ -63,11 +60,35 @@ public class RelationServiceImpl {
         return true;
     }
 
+    //列出和用户绑定的用户
+    public UserModel listRelation(String userName){
+        UserModel user1 = userService.findUser(userName);
+        if (user1 == null) {
+            return null;
+        }
+        Relationship relationship = relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getId()).or().eq("user_two", user1.getId()));
+        if (user1.getId() == relationship.getUserOneId()) {
+           return userService.findIdUser(String.valueOf(relationship.getUserTwoId()));
+        } else if (user1.getId() == relationship.getUserTwoId()) {
+          return   userService.findIdUser(String.valueOf(relationship.getUserOneId()));
+        }
+        return null;
+    }
+
 
     //查找用户存在的关系
     public Relationship findRelation(String userName){
         UserModel user1 = userService.findUser(userName);
-        return relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getId()));
+        if (user1 == null) {
+            return null;
+        }
+        Relationship userOne = relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getId()).or().eq("user_two", user1.getId()));
+        if (userOne == null){
+            return null;
+        }else {
+            System.out.println(userOne);
+            return userOne;
+        }
     }
 
 }

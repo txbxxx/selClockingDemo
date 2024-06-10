@@ -67,14 +67,16 @@ public class UserServiceImpl {
         return n;
     }
 
-    //使用用户名查找用户(精确)
+    //使用id查找用户(精确)
     public UserModel findIdUser(String id)
     {
         //查询用户
         UserModel n = userDao.selectOne(new QueryWrapper<UserModel>().eq("id", id));
+        if (n == null){
+            return  null;
+        }
         return n;
     }
-
 
     //删除用户
     public boolean deleteUser(String name){

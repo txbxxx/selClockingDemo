@@ -46,7 +46,8 @@ public class ScheduleServiceImpl {
     //查询日程（模糊）
     public List<Schedule> finderSchedule(String scheduleFiled,String userName){
         UserModel user = usImpl.findUser(userName);
-        List<Schedule> schedules = scheduleDao.selectList(new QueryWrapper<Schedule>().eq("user_id", user.getId()).like("schedule_filed", scheduleFiled));
+        List<Schedule> schedules = scheduleDao.selectList(new QueryWrapper<Schedule>().eq("user_id", user.getId())
+                .like("schedule_filed", scheduleFiled).or().like("date",scheduleFiled));
         if (!schedules.isEmpty()){
             return schedules;
         }else{
