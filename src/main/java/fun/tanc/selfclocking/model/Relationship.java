@@ -29,16 +29,18 @@ public class Relationship {
     @TableField("relationship")
     private String relationship;
 
-    @TableField(value = "day",exist = false)
-    private Date day;
+    @TableField(value = "day")
+    private int day;
 
-    @TableField(value = "time")
-    private LocalDateTime time;
+    @TableField(value = "start_day")
+    private String startDay;
 
-    public Relationship(Long uid1, Long uid2, String relationship, LocalDateTime now) {
-        this.userOneId = uid1;
-        this.userTwoId = uid2;
+
+    public Relationship(Long id, Long id1, String relationship, int i, String startDay) {
+        this.userOneId = id;
+        this.userTwoId = id1;
         this.relationship = relationship;
-        this.time = now;
+        this.day = i;
+        this.startDay = startDay;
     }
 }

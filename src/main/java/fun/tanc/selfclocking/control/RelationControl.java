@@ -9,6 +9,7 @@ import fun.tanc.selfclocking.service.RelationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.Map;
 
 @RestController
@@ -33,11 +34,12 @@ public class RelationControl {
 
     //解绑关系
     @SaCheckLogin
-    @RequestMapping(value = "/deleteRelationship",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deleteRelation",method = RequestMethod.DELETE)
     public SaResult deleteRelationship(@RequestBody Map<String , String> map)
     {
         String userName = StpUtil.getLoginId().toString();
         String friendName = map.get("friendname");
+        System.out.println(friendName);
         Boolean b = relationService.deleteRelation(userName, friendName);
         if (!b){
             return  SaResult.error("解绑关系失败");
@@ -79,5 +81,17 @@ public class RelationControl {
             return SaResult.error("未绑定关系");
         }
 
+    }
+
+    //更新关系绑定天数
+    @SaCheckLogin
+    @RequestMapping(value = "/updateRelationDay",method = RequestMethod.PUT)
+    public SaResult updateRelationDay() throws ParseException {
+        String userName = StpUtil.getLoginId().toString();
+        Boolean b = relationService.updateRelationDay(userName);
+        if (!b){
+            return SaResult.error("更新关系绑定天数失败");
+        }
+        return SaResult.ok("更新关系绑定天数成功");
     }
 }

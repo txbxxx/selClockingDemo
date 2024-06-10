@@ -83,7 +83,6 @@ public class CountDownServiceImpl {
         List<CountDown> countDowns = finderCountDownOverFalse(userName);
         //获取当前日期
         Date date = new Date();
-        System.out.println(date.getTime());
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         //遍历列表（语法糖）
         for (CountDown countDown : countDowns) {
