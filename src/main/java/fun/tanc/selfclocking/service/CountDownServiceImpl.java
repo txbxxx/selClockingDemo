@@ -89,12 +89,10 @@ public class CountDownServiceImpl {
             //将日期开始日期解析为date
             String Start = countDown.getCountdownStart();
             Date countdownStart = dateFormat.parse(Start);
-            System.out.println(countdownStart.getTime());
 
             // 计算日期差
             long diffInMillies = Math.abs(date.getTime() - countdownStart.getTime());
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-            System.out.println(diff);
 
 
             //更新当前倒计时的天数

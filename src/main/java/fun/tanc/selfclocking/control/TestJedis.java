@@ -18,6 +18,7 @@ public class TestJedis {
     public SaResult testSetJedis() {
         try {
             jedis.set("1212", "redis存入去除这么简单");
+            jedis.close();
         } catch (Exception e) {
             System.out.println(e);
             return SaResult.error("redis存入失败");
@@ -31,6 +32,7 @@ public class TestJedis {
         try {
             s = jedis.get("1212");
             System.out.println(s);
+            jedis.close();
         } catch (Exception e) {
             System.out.println(e);
             return SaResult.error("redis取出失败");

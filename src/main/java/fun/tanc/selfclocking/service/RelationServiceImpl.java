@@ -98,12 +98,10 @@ public class RelationServiceImpl {
         if (user1 == null) {
             return null;
         }
-        System.out.println(user1.getId());
         Relationship userOne = relationshipDao.selectOne(new QueryWrapper<Relationship>().eq("user_one", user1.getId()).or().eq("user_two", user1.getId()));
         if (userOne == null){
             return null;
         }else {
-            System.out.println(userOne);
             return userOne;
         }
     }
