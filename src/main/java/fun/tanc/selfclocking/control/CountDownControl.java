@@ -54,7 +54,7 @@ public class CountDownControl {
         if (data != null) {
             return SaResult.data(data);
         }
-        return SaResult.error("列出失败");
+        return SaResult.ok("没有或没有查询到倒计时");
     }
 
     //列出未完成的倒计时
@@ -65,7 +65,7 @@ public class CountDownControl {
         if (data != null) {
             return SaResult.data(data);
         }
-        return SaResult.error("列出失败");
+        return SaResult.ok("没有或没有查询到倒计时");
     }
 
     //列出完成的倒计时
@@ -76,7 +76,7 @@ public class CountDownControl {
         if (data != null) {
             return SaResult.data(data);
         }
-        return SaResult.error("列出失败");
+        return SaResult.ok("没有或没有查询到倒计时");
     }
 
     //修改倒计时
@@ -89,7 +89,7 @@ public class CountDownControl {
         if (b){
             return SaResult.ok("修改成功");
         }else {
-            return SaResult.error("修改失败");
+            return SaResult.error("没有或没有查询到倒计时");
         }
     }
 
@@ -101,7 +101,7 @@ public class CountDownControl {
         if (b){
             return SaResult.ok("修改成功");
         }else {
-            return SaResult.error("修改失败");
+            return SaResult.ok("没有或没有查询到倒计时");
         }
     }
 }

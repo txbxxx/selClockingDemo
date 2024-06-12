@@ -63,7 +63,7 @@ public class UserTaskControl {
         String userName = StpUtil.getLoginId().toString();
         List<UserTask> userTask = userTaskService.findUserTask(userName,task);
         if (userTask == null){
-            return  SaResult.ok("没有任务");
+            return  SaResult.data(null);
         }
         return SaResult.data(userTask);
     }

@@ -81,6 +81,9 @@ public class CountDownServiceImpl {
     public Boolean updateCountDownPastDay(String userName) throws ParseException {
         //列出所有未完成的倒计时
         List<CountDown> countDowns = finderCountDownOverFalse(userName);
+        if (countDowns == null) {
+            return  false;
+        }
         //获取当前日期
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
