@@ -31,10 +31,19 @@ public class ScheduleServiceImpl {
         return insert >= 0;
     }
     
-    //查询此用户的单个日程(精确)
+    //查询此用户的单个日程(修改可以匹配名字和时间和日期)
     public Schedule findSchedule(String scheduleFiled,String userName){
         UserModel user = usImpl.findUser(userName);
-        Schedule s = scheduleDao.selectOne(new QueryWrapper<Schedule>().eq("user_id", user.getId()).eq("schedule_filed", scheduleFiled));
+        Schedule s = scheduleDao.selectOne(new QueryWrapper<Schedule>().eq("user_id", user.getId())
+                .like("schedule_filed", scheduleFiled)
+                .or()
+                .like("date",scheduleFiled)
+                .or()
+                .like("end_date",scheduleFiled)
+                .or()
+                .like("start_time",scheduleFiled)
+                .or()
+                .like("end_time",scheduleFiled));
         if (s != null){
             return s;
         }else{
@@ -47,12 +56,18 @@ public class ScheduleServiceImpl {
     public List<Schedule> finderSchedule(String scheduleFiled,String userName){
         UserModel user = usImpl.findUser(userName);
         List<Schedule> schedules = scheduleDao.selectList(new QueryWrapper<Schedule>().eq("user_id", user.getId())
-                .like("schedule_filed", scheduleFiled).or().like("date",scheduleFiled));
-        if (!schedules.isEmpty()){
-            return schedules;
-        }else{
-            return null;
-        }
+                .like("schedule_filed", scheduleFiled)
+                .or()
+                .like("date",scheduleFiled)
+                .or()
+                .like("end_date",scheduleFiled)
+                .or()
+                .like("start_time",scheduleFiled)
+                .or()
+                .like("end_time",scheduleFiled));
+
+        return schedules;
+
     }
     
     //查询此用户所有日程

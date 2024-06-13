@@ -78,7 +78,6 @@ public class UserTaskServiceImpl {
                 .like("task_field", taskFiled)
                 .or()
                 .like("task_name",taskFiled));
-        System.out.println("查询结果: "+userTasks);
         return userTasks;
     }
 

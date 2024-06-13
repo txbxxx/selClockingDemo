@@ -60,7 +60,7 @@ public class ScheduleControl {
     public SaResult findSchedule(@RequestBody Map<String,String> map)
     {
         String scheduleFiled = map.get("scheduleFiled");
-        String userName = map.get("userName");
+        String userName = StpUtil.getLoginId().toString();
         Schedule schedule = scheduleService.findSchedule(scheduleFiled, userName);
         if (schedule != null) {
             return SaResult.data(schedule);
@@ -78,7 +78,7 @@ public class ScheduleControl {
         if (schedule != null) {
             return SaResult.data(schedule);
         }
-        return SaResult.ok("此用户没有此日程");
+        return SaResult.data(null);
     }
 
     //删除日程
